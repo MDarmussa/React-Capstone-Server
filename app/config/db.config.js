@@ -1,4 +1,4 @@
 module.exports = {
-    url: "mongodb+srv://kbartel:digitalCrafts@cluster0.2gqwn.mongodb.net/react-CRUD-mongo?retryWrites=true&w=majority"
+    url: "mongodb+srv://budget-team:Spenceadmin90210@cluster0.jn2n6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
   };
  
