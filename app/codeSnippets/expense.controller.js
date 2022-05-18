@@ -1,27 +1,26 @@
-const { useStore } = require("react-redux");
 const db = require("../models");
-const User = db.users;
+const Expense = db.expense;
 // Create and Save a new Tutorial
 
   exports.create = (req, res) => {
-   // Validate request
-  //  if (!req.body.title) {
-  //    res.status(400).send({ message: "Content can not be empty!" });
-  //    return;
-  //  }
-   // Create a Tutorial
-   const user = new User({
-     username: "JohnDoe",
-     email: "JohnDoe@gmail.com",
-     password: "imapass1234"
-   });
+  //  Validate request
+   if (!req.body.title) {
+     res.status(400).send({ message: "Content can not be empty!" });
+     return;
+   }
+  //  Create a Tutorial
+    const user = new User({
+      username: "JohnDoe",
+      email: "JohnDoe@gmail.com",
+      password: "imapass1234"
+    });
 
-  //  const tutorial = new Tutorial({
-  //   title: req.body.title,
-  //   description: req.body.description,
-  //   published: req.body.published ? req.body.published : false
-  // });
-   // Save Tutorial in the database
+   const tutorial = new Tutorial({
+    title: req.body.title,
+    description: req.body.description,
+    published: req.body.published ? req.body.published : false
+  });
+  //  Save Tutorial in the database
    user
      .save(user)
      .then(data => {
