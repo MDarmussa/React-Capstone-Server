@@ -6,8 +6,9 @@ const jwt = require("jsonwebtoken");
 const isValidToken = require("../../middleware/isValidToken");
 const saltRounds = bcrypt.genSaltSync(Number(process.env.SALT_FACTOR));
 require("dotenv").config();
-// let globalUsername;
 
+let globalUsername;
+const mongoose = require("mongoose");
 
 router.post('/register', async (req, res, next) => {
     const { username, password, email } = req.body
@@ -31,10 +32,10 @@ router.post('/login', async (req, res, next) => {
     const user = await User.findOne({
           username: username,
       });
+      console.log(user)
       console.log(username)
       console.log(user)
       const comparePass = bcrypt.compareSync(password, user.password)
-    // res.json('this is a user')
     if (comparePass) {
           const token = jwt.sign(
             {
