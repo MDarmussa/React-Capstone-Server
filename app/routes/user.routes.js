@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const isValidToken = require("../../middleware/isValidToken");
 const saltRounds = bcrypt.genSaltSync(Number(process.env.SALT_FACTOR));
 require("dotenv").config();
-let globalUsername;
+// let globalUsername;
 
 
 router.post('/register', async (req, res, next) => {
@@ -26,19 +26,20 @@ router.post('/register', async (req, res, next) => {
 // insert middleware after async, <middleware>
 router.post('/login', async (req, res, next) => {
     const { username, password } = req.body
-    globalUsername = username;
+    // globalUsername = username;
+    // console.log(globalUsername)
     const user = await User.findOne({
-        where: {
           username: username,
-        },
       });
+      console.log(username)
+      console.log(user)
+      const comparePass = bcrypt.compareSync(password, user.password)
     // res.json('this is a user')
-    if (user) {
-        const comparePass = bcrypt.compareSync(password, user.password);
-        if (comparePass === true) {
+    if (comparePass) {
           const token = jwt.sign(
             {
               data: user.username,
+              _id: user._id
             },
             process.env.SECRET_KEY,
             {
@@ -47,15 +48,16 @@ router.post('/login', async (req, res, next) => {
           );
           res.cookie("token", token);
         //   res.json('line 48', token)
-          res.json("Access Garanteed")
+          res.json("Access Garanteed");
         //   res.redirect(`/profile/${user.id}`);
         } else {
           res.send("wrong password!");
         }
-      } else {
-        res.send("sorry, no user found");
-      }
-})
+    } 
+    // else {
+      //   res.send("sorry, no user found");
+      // }
+)
 
 
 // router.post("/update", async (req, res) => {
