@@ -7,6 +7,7 @@ const isValidToken = require("../../middleware/isValidToken");
 const saltRounds = bcrypt.genSaltSync(Number(process.env.SALT_FACTOR));
 require("dotenv").config();
 let globalUsername;
+const mongoose = require("mongoose");
 
 
 router.post('/register', async (req, res, next) => {
@@ -26,12 +27,12 @@ router.post('/register', async (req, res, next) => {
 // insert middleware after async, <middleware>
 router.post('/login', async (req, res, next) => {
     const { username, password } = req.body
-    globalUsername = username;
+    // globalUsername = username;
+    // console.log(globalUsername)
     const user = await User.findOne({
-        where: {
           username: username,
-        },
       });
+      console.log(user)
     // res.json('this is a user')
     if (user) {
         const comparePass = bcrypt.compareSync(password, user.password);
