@@ -6,9 +6,9 @@ const jwt = require("jsonwebtoken");
 const isValidToken = require("../../middleware/isValidToken");
 const saltRounds = bcrypt.genSaltSync(Number(process.env.SALT_FACTOR));
 require("dotenv").config();
+
 let globalUsername;
 const mongoose = require("mongoose");
-
 
 router.post('/register', async (req, res, next) => {
     const { username, password, email } = req.body
@@ -33,13 +33,14 @@ router.post('/login', async (req, res, next) => {
           username: username,
       });
       console.log(user)
-    // res.json('this is a user')
-    if (user) {
-        const comparePass = bcrypt.compareSync(password, user.password);
-        if (comparePass === true) {
+      console.log(username)
+      console.log(user)
+      const comparePass = bcrypt.compareSync(password, user.password)
+    if (comparePass) {
           const token = jwt.sign(
             {
               data: user.username,
+              _id: user._id
             },
             process.env.SECRET_KEY,
             {
@@ -48,15 +49,16 @@ router.post('/login', async (req, res, next) => {
           );
           res.cookie("token", token);
         //   res.json('line 48', token)
-          res.json("Access Garanteed")
+          res.json("Access Garanteed");
         //   res.redirect(`/profile/${user.id}`);
         } else {
           res.send("wrong password!");
         }
-      } else {
-        res.send("sorry, no user found");
-      }
-})
+    } 
+    // else {
+      //   res.send("sorry, no user found");
+      // }
+)
 
 
 // router.post("/update", async (req, res) => {
