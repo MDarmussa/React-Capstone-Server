@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const Expense = require('../models/expense');
+const Expense = require('../models/Expense');
   
   router.post("/create", async (req, res, next) => {
     const { type, amount, payment, date, comment } = req.body
     const createExpense = await Expense.create(req.body)
     res.json(createExpense)
   });
+
+
+
+
+
   // // Retrieve all expense
   // router.get("/:id", expense.findAll);
   // // Retrieve a single expense with id
