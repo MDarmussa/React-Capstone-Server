@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Expense = require('../models/expense');
 
-// Create a new expense
+const Expense = require('../models/Expense');
+  
+
+
   router.post("/create", async (req, res, next) => {
     const { type, amount, payment, date, comment } = req.body
     const createExpense = await Expense.create(req.body)
