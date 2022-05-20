@@ -1,19 +1,44 @@
 const express = require('express');
 const router = express.Router();
-
 const Expense = require('../models/Expense');
   
+// Create addExpense 
+  router.post('/addExpense', (req, res, next) => {
+    console.log("Adding New Expense");
+    const expenseObj = {
+      "_id": new mongoose.Types.ObjectId(),
+      "category": req.body.category,
+      "amount": req.body.amount,
+      "paymentMethod": req.body.paymentMethod,
+      "date": req.body.date,
+      "comment": req.body.comment,
+      "username": req.body.username
+    }
+    const newExpense = new Expense(expenseObj);
+     newExpense.save((err) => {
+      if(err) {
+        res.status(400).send("There is an error while adding a new expense")
+     }
+      else { 
+        res.status(200).json(newExpense)
+      }
+    })
+  })
 
-
-  router.post("/create", async (req, res, next) => {
-    const { type, amount, payment, date, comment } = req.body
-    const createExpense = await Expense.create(req.body)
-    res.json(createExpense)
+// Get userExpenses by user ID
+    // change username to activeUser
+    // refactor line 41
+  router.get('/userExpenses', (req, res) => {
+    Expense.
+      findOne({ _id: "6286e382e64990aea2212571" }).
+      populate('username').
+      exec(function (err, expense) {
+        if (err) return handleError(err);
+        console.log('The Expense is %s', expense);
+        res.json(expense)
   });
+  })
 
-  // // Retrieve all expense
-  // router.get("/:id", expense.findAll);
- 
   // Retrieve a single expense with id
   router.get('/:id', async function(req, res, next) {
     const expense = await Expense.findById ({
