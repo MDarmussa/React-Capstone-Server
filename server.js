@@ -36,7 +36,7 @@ app.use('/expense', expenseRouter)
 // simple route
 app.get("/", (req, res) => {
   // interact with the model to get json from db and then send that
-  let data = { message: "Welcome to bezkoder application." }
+  let data = { message: "Welcome to Spence App" }
   res.json(data);
 });
 
