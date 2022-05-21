@@ -4,7 +4,7 @@ const app = express();
 const userRouter = require('./app/routes/user.routes')
 const expenseRouter = require('./app/routes/expense.routes')
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:3000"
 };
 
 
