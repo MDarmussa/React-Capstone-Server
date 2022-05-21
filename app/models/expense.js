@@ -10,12 +10,16 @@ const Schema = mongoose.Schema;
     },
 
     amount: Number,
+    
     receipt: {
       data: Buffer,
       contentType: String
     },
 
-    paymentMethod: String,
+    paymentMethod:{
+      type: String,
+      enum: ['Debit Card', 'Credit Card', 'Cash', 'Bitcoin', 'Other'],
+    },
 
     date: Date,
 

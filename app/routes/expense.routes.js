@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Expense = require('../models/Expense');
-  
+const mongoose = require("mongoose");
+
+
 // Create addExpense 
   router.post('/addExpense', (req, res, next) => {
     console.log("Adding New Expense");
@@ -9,6 +11,7 @@ const Expense = require('../models/Expense');
       "_id": new mongoose.Types.ObjectId(),
       "category": req.body.category,
       "amount": req.body.amount,
+      "receipt": req.body.receipt,
       "paymentMethod": req.body.paymentMethod,
       "date": req.body.date,
       "comment": req.body.comment,
@@ -48,7 +51,7 @@ const Expense = require('../models/Expense');
   
   // Update a expense with id
   router.patch('/:id', async function(req, res, next) {
-    const {amount, type, payment, date, comment} = req.body
+    const {category, amount, paymentMethod, date, comment} = req.body
     const updateExpense = await Expense.findByIdAndUpdate (
     req.params.id, req.body );
     res.json(updateExpense);
@@ -58,6 +61,7 @@ const Expense = require('../models/Expense');
   router.delete('/:id', async function(req, res, next) {
     const deleteExpense = await Expense.findByIdAndDelete (
     req.params.id);
+    res.send('Entity was deleted successfully')
     res.json(deleteExpense);
   });
   
