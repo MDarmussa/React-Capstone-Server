@@ -21,7 +21,6 @@
     "mongoose": "^6.3.3",
     "nodemon": "^2.0.16"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MDarmussa/React-Capstone-Server.git"
