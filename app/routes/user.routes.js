@@ -39,24 +39,28 @@ router.post("/login", async (req, res, next) => {
   });
   console.log(username);
   console.log(user);
-  const comparePass = bcrypt.compareSync(password, user.password);
-  if (comparePass) {
-    const token = jwt.sign(
-      {
-        data: user.username,
-        _id: user._id,
-      },
-      process.env.SECRET_KEY,
-      {
-        expiresIn: "1h",
-      }
-    );
-    res.cookie("token", token);
-    //   res.json('line 48', token)
-    res.json("Access granted");
-    //   res.redirect(`/profile/${user.id}`);
+  if (user) {
+    const comparePass = bcrypt.compareSync(password, user.password);
+    if (comparePass) {
+      const token = jwt.sign(
+        {
+          data: user.username,
+          _id: user._id,
+        },
+        process.env.SECRET_KEY,
+        {
+          expiresIn: "1h",
+        }
+      );
+      res.cookie("token", token);
+      //   res.json('line 48', token)
+      res.json("Access granted");
+      //   res.redirect(`/profile/${user.id}`);
+    } else {
+      res.send("wrong password!");
+    }
   } else {
-    res.send("wrong password!");
+    res.send("sorry, no user found");
   }
 });
 
