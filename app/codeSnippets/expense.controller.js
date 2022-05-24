@@ -140,3 +140,16 @@ const Expense = db.expense;
 //        });
 //      });
  };
+
+
+
+  {/* {!isLoggedIn ? <Navigate to="/logIn/"/> : null}  */}
+
+
+          {/* <Route path="/" element={<Home />} /> */}
+
+        {/* <SignUp /> */}
+          {/* <DashBoard /> 
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<LogIn />} /> */}
