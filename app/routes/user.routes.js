@@ -23,6 +23,15 @@ router.post("/register", async (req, res, next) => {
 });
 
 //Login route
+router.get("/users", async (req, res, next) => {
+  // const { username, password } = req.body;
+  const user = await User.findAll({
+    username: username,
+  });
+  console.log(username);
+  console.log(user);
+})
+//Login route
 router.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
   const user = await User.findOne({
@@ -44,11 +53,18 @@ router.post("/login", async (req, res, next) => {
     );
     res.cookie("token", token);
     //   res.json('line 48', token)
-    res.json("Access Garanteed");
+    res.json("Access granted");
     //   res.redirect(`/profile/${user.id}`);
   } else {
     res.send("wrong password!");
   }
+});
+
+
+router.get('/logout', function(req, res) {
+  res.clearCookie('jwt').send();
+  // res.json('/');
+
 });
 
 module.exports = router;
