@@ -18,7 +18,6 @@ router.post("/register", async (req, res, next) => {
     password: hashPassword,
     email,
   });
-  // const user = await User.findById(createUser._id)
   res.json(createUser);
 });
 
@@ -31,6 +30,7 @@ router.get("/users", async (req, res, next) => {
   console.log(username);
   console.log(user);
 })
+
 //Login route
 router.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
@@ -53,22 +53,17 @@ router.post("/login", async (req, res, next) => {
         }
       );
       res.cookie("token", token);
-      //   res.json('line 48', token)
-      res.json("Access granted");
-      //   res.redirect(`/profile/${user.id}`);
+      res.json(user);
     } else {
-      res.send("wrong password!");
+      res.json({msg: "Wrong Password"});
     }
   } else {
     res.send("sorry, no user found");
   }
 });
 
-
 router.get('/logout', function(req, res) {
   res.clearCookie('jwt').send();
-  // res.json('/');
-
 });
 
 module.exports = router;
