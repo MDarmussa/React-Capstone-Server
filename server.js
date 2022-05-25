@@ -7,11 +7,8 @@ var corsOptions = {
   origin: "http://localhost:3000"
 };
 
-
 app.use(cors(corsOptions));
-// parse requests of content-type - application/json
 app.use(express.json());
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
 // the database
@@ -29,18 +26,14 @@ db.mongoose
     process.exit();
   });
 
-// place these at the beginning of the routing connections string
 app.use('/user', userRouter)
 app.use('/expense', expenseRouter)
 
-// simple route
 app.get("/", (req, res) => {
-  // interact with the model to get json from db and then send that
   let data = { message: "Welcome to Spence App" }
   res.json(data);
 });
 
-// set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);

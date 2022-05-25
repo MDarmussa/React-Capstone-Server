@@ -3,10 +3,8 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const isValidToken = require("../../middleware/isValidToken");
 const saltRounds = bcrypt.genSaltSync(Number(process.env.SALT_FACTOR));
 require("dotenv").config();
-const mongoose = require("mongoose");
 
 //Register a new user route
 router.post("/register", async (req, res, next) => {

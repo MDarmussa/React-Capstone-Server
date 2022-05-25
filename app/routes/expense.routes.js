@@ -27,9 +27,6 @@ router.post("/addExpense", (req, res, next) => {
   });
 });
 
-// Get userExpenses by user ID
-// change username to activeUser
-// refactor line 41
 router.get("/userExpenses", (req, res) => {
   Expense.findOne({ _id: "6286e382e64990aea2212571" })
     .populate("username")

@@ -19,7 +19,6 @@ const isValidToken = (req, res, next) => {
       }
       )
     } else {
-//     res.redirect('/error');
     res.json('Wrong Password')
     } 
     }
