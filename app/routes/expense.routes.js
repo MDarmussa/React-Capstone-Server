@@ -14,8 +14,11 @@ router.post("/addExpense", (req, res, next) => {
     paymentMethod: req.body.paymentMethod,
     date: req.body.date,
     comment: req.body.comment,
-    username: req.body.username,
+    username: req.body.username, // same username that is being pulled from useNavigate prop 
   };
+
+  console.log(expenseObj); 
+
   const newExpense = new Expense(expenseObj);
   newExpense.save((err) => {
     if (err) {
@@ -27,14 +30,23 @@ router.post("/addExpense", (req, res, next) => {
   });
 });
 
-router.get("/userExpenses", (req, res) => {
-  Expense.findOne({ _id: "6286e382e64990aea2212571" })
-    .populate("username")
-    .exec(function (err, expense) {
-      if (err) return handleError(err);
-      console.log("The Expense is %s", expense);
-      res.json(expense);
-    });
+router.get("/userExpenses/:id", async (req, res) => {
+  const {id}= req.params //we need to pass the user value here 
+
+  const expense= await Expense.find({
+    username:id
+  });
+  console.log(expense)
+  res.status(200).json(expense)
+  
+  // ({ _id: req.body.username }) //can we replace this with an empty string to update the id ? -RO
+  //   .populate("username")
+  //   // .exec(function (err) {
+  //   //   if (err){
+  //   //     return handleError(err);};
+  //   // });
+    // res.json(expense);
+
 });
 
 // Retrieve a single expense with id
