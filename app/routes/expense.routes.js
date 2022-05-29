@@ -41,20 +41,25 @@ router.get("/userExpenses/:id", async (req, res) => {
 });
 
 // Delete a expense with id
-router.delete("/:id", async function (req, res, next) {
-  const deleteExpense = await Expense.findByIdAndDelete(req.params.id);
-  res.send("Entity was deleted successfully");
-  res.json(deleteExpense);
-});
-
-
-// Retrieve a single expense with id
-router.get("/:id", async function (req, res, next) {
-  const expense = await Expense.findById({
-    _id: req.params.id,
+router.delete("/:id", async (req, res, next) => {
+  const {eid} = req.params
+  console.log(eid)
+  const deleteById = await Expense.findByIdAndDelete(
+    {
+  id : eid
   });
-  res.json(expense);
-});
+  console.log(deleteById)
+  res.send("Entity was deleted successfully");
+  res.json(deleteById);
+})
+  
+// Retrieve a single expense with id
+// router.get("/id", async function (req, res, next) {
+//   const expense = await Expense.findById({
+//     _id: req.params.id,
+//   });
+//   res.json(expense);
+// });
 
 // Update a expense with id
 router.patch("/:id", async function (req, res, next) {
