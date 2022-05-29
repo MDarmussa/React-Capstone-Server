@@ -30,24 +30,23 @@ router.post("/addExpense", (req, res, next) => {
   });
 });
 
+// GEt Expenses
 router.get("/userExpenses/:id", async (req, res) => {
-  const {id}= req.params //we need to pass the user value here 
-
+  const {id}= req.params 
   const expense= await Expense.find({
     username:id
   });
   console.log(expense)
-  res.status(200).json(expense)
-  
-  // ({ _id: req.body.username }) //can we replace this with an empty string to update the id ? -RO
-  //   .populate("username")
-  //   // .exec(function (err) {
-  //   //   if (err){
-  //   //     return handleError(err);};
-  //   // });
-    // res.json(expense);
-
+  res.status(200).json(expense);
 });
+
+// Delete a expense with id
+router.delete("/:id", async function (req, res, next) {
+  const deleteExpense = await Expense.findByIdAndDelete(req.params.id);
+  res.send("Entity was deleted successfully");
+  res.json(deleteExpense);
+});
+
 
 // Retrieve a single expense with id
 router.get("/:id", async function (req, res, next) {
@@ -67,11 +66,5 @@ router.patch("/:id", async function (req, res, next) {
   res.json(updateExpense);
 });
 
-// Delete a expense with id
-router.delete("/:id", async function (req, res, next) {
-  const deleteExpense = await Expense.findByIdAndDelete(req.params.id);
-  res.send("Entity was deleted successfully");
-  res.json(deleteExpense);
-});
 
 module.exports = router;
