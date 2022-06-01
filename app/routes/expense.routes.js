@@ -30,48 +30,47 @@ router.post("/addExpense", (req, res, next) => {
   });
 });
 
+// GEt Expenses
 router.get("/userExpenses/:id", async (req, res) => {
-  const {id}= req.params //we need to pass the user value here 
-
-  const expense= await Expense.find({
-    username:id
-  });
-  console.log(expense)
-  res.status(200).json(expense)
+  const {id}= req.params 
+  try{
+    const expense= await Expense.find({
+      username:id
+    });
+    console.log('line 40, expenses', expense)
+    res.status(200).json(expense);
+  }
+  catch (error) {
+    console.log(error)
+    res.json(error)
+  }
   
-  // ({ _id: req.body.username }) //can we replace this with an empty string to update the id ? -RO
-  //   .populate("username")
-  //   // .exec(function (err) {
-  //   //   if (err){
-  //   //     return handleError(err);};
-  //   // });
-    // res.json(expense);
-
-});
-
-// Retrieve a single expense with id
-router.get("/:id", async function (req, res, next) {
-  const expense = await Expense.findById({
-    _id: req.params.id,
-  });
-  res.json(expense);
-});
-
-// Update a expense with id
-router.patch("/:id", async function (req, res, next) {
-  const { category, amount, paymentMethod, date, comment } = req.body;
-  const updateExpense = await Expense.findByIdAndUpdate(
-    req.params.id,
-    req.body
-  );
-  res.json(updateExpense);
 });
 
 // Delete a expense with id
-router.delete("/:id", async function (req, res, next) {
-  const deleteExpense = await Expense.findByIdAndDelete(req.params.id);
-  res.send("Entity was deleted successfully");
-  res.json(deleteExpense);
-});
+router.delete("/deleteExpense/:id", async (req, res, next) => {
+  const {id} = req.params
+      console.log(id)
+      // console.log('line 46', id)
+  const deleteById = await Expense.findByIdAndDelete(
+    {
+  _id : id
+  });
+  // console.log("line 59 deletebyId", deleteById)
+  // res.send("Entity was deleted successfully");
+  res.json(deleteById);
+  
+})
+
+// Update a expense with id
+// router.patch("/:id", async function (req, res, next) {
+//   const { category, amount, paymentMethod, date, comment } = req.body;
+//   const updateExpense = await Expense.findByIdAndUpdate(
+//     req.params.id,
+//     req.body
+//   );
+//   res.json(updateExpense);
+// });
+
 
 module.exports = router;
