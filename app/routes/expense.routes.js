@@ -14,7 +14,7 @@ router.post("/addExpense", (req, res, next) => {
     paymentMethod: req.body.paymentMethod,
     date: req.body.date,
     comment: req.body.comment,
-    username: req.body.username, // same username that is being pulled from useNavigate prop 
+    username: req.body.username, 
   };
 
   console.log(expenseObj); 
@@ -44,33 +44,16 @@ router.get("/userExpenses/:id", async (req, res) => {
     console.log(error)
     res.json(error)
   }
-  
 });
 
-// Delete a expense with id
+// Delete a expense By id
 router.delete("/deleteExpense/:id", async (req, res, next) => {
   const {id} = req.params
-      console.log(id)
-      // console.log('line 46', id)
   const deleteById = await Expense.findByIdAndDelete(
     {
   _id : id
   });
-  // console.log("line 59 deletebyId", deleteById)
-  // res.send("Entity was deleted successfully");
   res.json(deleteById);
-  
 })
-
-// Update a expense with id
-// router.patch("/:id", async function (req, res, next) {
-//   const { category, amount, paymentMethod, date, comment } = req.body;
-//   const updateExpense = await Expense.findByIdAndUpdate(
-//     req.params.id,
-//     req.body
-//   );
-//   res.json(updateExpense);
-// });
-
 
 module.exports = router;
