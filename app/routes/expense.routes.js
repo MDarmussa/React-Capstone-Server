@@ -48,17 +48,17 @@ router.get("/userExpenses/:id", async (req, res) => {
 });
 
 // Delete a expense with id
-router.delete("deleteExpense/:id", async (req, res, next) => {
+router.delete("/deleteExpense/:id", async (req, res, next) => {
   const {id} = req.params
       console.log(id)
-  //     // console.log('line 46', id)
-  // const deleteById = await Expense.findByIdAndDelete(
-  //   {
-  // _id : id
-  // });
-  // // console.log("line 59 deletebyId", deleteById)
-  // // res.send("Entity was deleted successfully");
-  // res.json(deleteById);
+      // console.log('line 46', id)
+  const deleteById = await Expense.findByIdAndDelete(
+    {
+  _id : id
+  });
+  // console.log("line 59 deletebyId", deleteById)
+  // res.send("Entity was deleted successfully");
+  res.json(deleteById);
   
 })
 
