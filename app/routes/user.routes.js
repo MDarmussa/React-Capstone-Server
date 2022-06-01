@@ -24,8 +24,6 @@ router.get("/users", async (req, res, next) => {
   const user = await User.findAll({
     username: username,
   });
-  console.log(username);
-  console.log(user);
 })
 
 //Login route
