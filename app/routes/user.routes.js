@@ -56,7 +56,7 @@ router.post("/login", async (req, res, next) => {
       res.json({msg: "Wrong Password"});
     }
   } else {
-    res.json({msg: "sorry, no user found"});
+    res.json({msg: "Sorry, No User Found"});
   }
 });
 
