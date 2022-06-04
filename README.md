@@ -14,7 +14,7 @@ This application was created using React, Mongoose and MongoDB.
 
 Contributors:
 
-Rashida Otunba
-Kelli Stone
-Kristen Bartel
+Rashida Otunba,
+Kelli Stone,
+Kristen Bartel,
 Mohammad Darmussa
