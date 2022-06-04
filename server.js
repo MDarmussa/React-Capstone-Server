@@ -3,8 +3,15 @@ const cors = require("cors");
 const app = express();
 const userRouter = require('./app/routes/user.routes')
 const expenseRouter = require('./app/routes/expense.routes')
+require("dotenv").config()
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers':
+    'Origin, X-Requested-With, Content-Type, Accept', 
 };
 
 app.use(cors(corsOptions));
